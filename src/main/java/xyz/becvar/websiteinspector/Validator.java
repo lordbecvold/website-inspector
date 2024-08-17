@@ -1,6 +1,7 @@
 package xyz.becvar.websiteinspector;
 
 import xyz.becvar.websiteinspector.utils.NetworkUtils;
+import xyz.becvar.websiteinspector.utils.console.Logger;
 
 /**
  * Class Validator
@@ -22,8 +23,7 @@ public class Validator
         String httpUrl;
 
         if (url == null || url.trim().isEmpty()) {
-            System.err.println("Error: URL is null or empty.");
-            System.exit(1);
+            Logger.errorLog("URL is null or empty.");
         }
 
         // remove last slash
@@ -52,8 +52,7 @@ public class Validator
         if (NetworkUtils.checkIsWebsiteAvailable(httpUrl)) {
             return httpUrl;
         } else {
-            System.err.println("Error: Website is not available.");
-            System.exit(1);
+            Logger.errorLog("Website is not available.");
             return null;
         }
     }
