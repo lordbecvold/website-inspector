@@ -2,7 +2,7 @@
 The Website inspector is CLI-Tool for get information about web applications and scanning vulnerabilities.
 
 # TODO
-- [ ] Website url input validator (url to scan add in argument)
+- [X] Website url input validator (url to scan add in argument)
 - [ ] Webserver info (webserver name, server ip, cms name, version, headers, etc...)
 - [ ] Check if website running on cloudflare
 - [ ] Check if website running on non secure http protocol
