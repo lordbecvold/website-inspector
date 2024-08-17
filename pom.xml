@@ -4,23 +4,31 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <properties>
-        <build.version>1.0</build.version>
-        <build.package>xyz.becvar.websiteauditor</build.package>
-        <build.main>xyz.becvar.websiteauditor.Main</build.main>
-        <build.java.version>21</build.java.version>
-    </properties>
-
-    <groupId>xyz.becvar.websiteaudito</groupId>
+    <groupId>xyz.becvar.websiteauditor</groupId>
     <artifactId>WebsiteAuditor</artifactId>
-    <version>1.0.0</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
+
+    <properties>
+        <!-- build properties -->
+        <build.version>${project.version}</build.version>
+        <build.package>${project.groupId}</build.package>
+        <build.main>${project.groupId}.Main</build.main>
+        <build.java.version>21</build.java.version>
+
+        <!-- maven properties -->
+        <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
+        <maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven.jar.plugin.version}</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -56,6 +64,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                     <source>${build.java.version}</source>
                     <target>${build.java.version}</target>
@@ -63,4 +72,13 @@
             </plugin>
         </plugins>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
