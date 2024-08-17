@@ -1,4 +1,4 @@
-package xyz.becvar.websiteauditor;
+package xyz.becvar.websiteinspector;
 
 public class Main
 {

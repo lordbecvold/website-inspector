@@ -16,4 +16,4 @@ The Website inspector is CLI-Tool for get information about web applications and
 - [ ] Log scan output to summary file
 
 ## License
-This software is licensed under the [MIT license](https://github.com/lordbecvold/website-auditor/blob/main/LICENSE).
+This software is licensed under the [MIT license](https://github.com/lordbecvold/website-inspector/blob/main/LICENSE).
