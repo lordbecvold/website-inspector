@@ -1,5 +1,5 @@
-# Website auditor
-The Website Auditor is CLI-Tool for get information about web applications and scanning vulnerabilities.
+# Website Inspector
+The Website inspector is CLI-Tool for get information about web applications and scanning vulnerabilities.
 
 # TODO
 - [ ] Website url input validator (url to scan add in argument)
