@@ -3,20 +3,8 @@ package xyz.becvar.websiteinspector.utils;
 import java.net.URL;
 import java.net.HttpURLConnection;
 
-/**
- * Class NetworkUtils
- * 
- * @package xyz.becvar.websiteinspector.utils
-*/
 public class NetworkUtils
 {
-    /**
-     * Check if website is available
-     *
-     * @param url to check
-     *
-     * @return boolean is available
-     */
     public static boolean checkIsWebsiteAvailable(String url)
     {
         try {

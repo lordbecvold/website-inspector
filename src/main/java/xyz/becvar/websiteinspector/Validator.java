@@ -1,22 +1,10 @@
 package xyz.becvar.websiteinspector;
 
+import xyz.becvar.websiteinspector.utils.Logger;
 import xyz.becvar.websiteinspector.utils.NetworkUtils;
-import xyz.becvar.websiteinspector.utils.console.Logger;
 
-/**
- * Class Validator
- * 
- * @package xyz.becvar.websiteinspector
- */
 public class Validator
 {
-    /**
-     * Validate the url
-     * 
-     * @param url to validate
-     * 
-     * @return string https url
-     */
     public static String validateUrl(String url)
     {
         String httpsUrl;
