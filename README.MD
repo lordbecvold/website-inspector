@@ -1,5 +1,6 @@
 # Website Inspector
 The Website inspector is CLI-Tool for get information about web applications and scanning vulnerabilities.
+This application serves as a better replacement for [website-scanner](https://github.com/lordbecvold/website-scanner).
 
 # TODO
 - [X] Website url input validator (url to scan add in argument)
