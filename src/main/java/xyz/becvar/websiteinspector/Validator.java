@@ -23,7 +23,12 @@ public class Validator
         String httpUrl;
 
         if (url == null || url.trim().isEmpty()) {
-            Logger.errorLog("URL is null or empty.");
+            Logger.error("URL is null or empty.");
+        }
+
+        if (url == null || url.trim().isEmpty()) {
+            Logger.error("URL is null or empty.");
+            return null;
         }
 
         // remove last slash
@@ -52,7 +57,7 @@ public class Validator
         if (NetworkUtils.checkIsWebsiteAvailable(httpUrl)) {
             return httpUrl;
         } else {
-            Logger.errorLog("Website is not available.");
+            Logger.error("Website is not available.");
             return null;
         }
     }

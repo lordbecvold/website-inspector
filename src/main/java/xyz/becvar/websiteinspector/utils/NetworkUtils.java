@@ -2,7 +2,6 @@ package xyz.becvar.websiteinspector.utils;
 
 import java.net.URL;
 import java.net.HttpURLConnection;
-import xyz.becvar.websiteinspector.utils.console.Logger;
 
 /**
  * Class NetworkUtils
@@ -28,7 +27,6 @@ public class NetworkUtils
             int responseCode = connection.getResponseCode();
             return (responseCode >= 200 && responseCode < 400);
         } catch (Exception e) {
-            Logger.errorLog("Unable connect to url: " + url);
             return false;
         }
     }
