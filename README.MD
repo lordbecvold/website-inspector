@@ -8,7 +8,7 @@ This application serves as a better replacement for [website-scanner](https://gi
 - [X] CMS detection (wordpress, joomla, drupal, etc...)
 - [X] Check if website running on cloudflare
 - [X] Check if website running on non secure http protocol
-- [ ] Check robots.txt, sitemap & well-known 
+- [X] Check robots.txt & sitemap
 - [ ] Scan routes
 - [ ] Scan subdomains
 - [ ] SQL injection test

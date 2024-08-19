@@ -2,6 +2,7 @@ package xyz.becvar.websiteinspector;
 
 import java.util.Scanner;
 import xyz.becvar.websiteinspector.utils.Logger;
+import xyz.becvar.websiteinspector.utils.WebsiteUtils;
 
 public class Main
 {
@@ -33,6 +34,20 @@ public class Main
 
         // print server info data
         ServerInfo.printServerInfo(url);
+
+        // print robots.txt summary
+        Logger.printSpacer();
+        Logger.log("Robots.txt Summary");
+        Logger.printSpacer();
+        String robotsSummary = WebsiteUtils.analyzeRobotsTxt(url);
+        Logger.rawLog(robotsSummary);
+
+        // print sitemap.xml summary
+        Logger.printSpacer();
+        Logger.log("Sitemap.xml Summary");
+        Logger.printSpacer();
+        String sitemapSummary = WebsiteUtils.analyzeSitemap(url);
+        Logger.rawLog(sitemapSummary);
 
         // print ending spacer
         Logger.printSpacer();

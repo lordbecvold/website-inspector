@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.List;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -130,5 +131,98 @@ public class WebsiteUtils
 
         // unknown CMS
         return "Unknown or unsupported CMS";
+    }
+
+    public static String downloadFileContent(String urlString)
+    {
+        StringBuilder content = new StringBuilder();
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine).append("\n");
+            }
+            in.close();
+        } catch (Exception e) {
+            Logger.error("Error fetching file: " + e.getMessage());
+            return null;
+        }
+        return content.toString();
+    }
+
+    public static String analyzeRobotsTxt(String url)
+    {
+        String robotsUrl = url + "/robots.txt";
+        String content = downloadFileContent(robotsUrl);
+
+        if (content == null || content.isEmpty()) {
+            return "robots.txt file not found or is empty.";
+        }
+
+        StringBuilder summary = new StringBuilder();
+        List<String> sitemaps = new ArrayList<>();
+        List<String> disallows = new ArrayList<>();
+        List<String> allows = new ArrayList<>();
+
+        String[] lines = content.split("\n");
+        for (String line : lines) {
+            line = line.trim();
+            if (line.startsWith("Sitemap:")) {
+                sitemaps.add(line.split(":", 2)[1].trim());
+            } else if (line.startsWith("Disallow:")) {
+                disallows.add(line.split(":", 2)[1].trim());
+            } else if (line.startsWith("Allow:")) {
+                allows.add(line.split(":", 2)[1].trim());
+            }
+        }
+
+        if (!disallows.isEmpty()) {
+            summary.append("Disallowed paths:\n");
+            for (String path : disallows) {
+                summary.append("  - ").append(path).append("\n");
+            }
+        }
+
+        if (!allows.isEmpty()) {
+            summary.append("Allowed paths:\n");
+            for (String path : allows) {
+                summary.append("  - ").append(path).append("\n");
+            }
+        }
+
+        if (!sitemaps.isEmpty()) {
+            summary.append("Sitemaps found:\n");
+            for (String sitemap : sitemaps) {
+                summary.append("  - ").append(sitemap);
+            }
+        }
+
+        return summary.toString();
+    }
+
+    public static String analyzeSitemap(String url)
+    {
+        String sitemapUrl = url + "/sitemap.xml";
+        String content = downloadFileContent(sitemapUrl);
+
+        if (content == null || content.isEmpty()) {
+            return "sitemap.xml file not found or is empty.";
+        }
+
+        StringBuilder summary = new StringBuilder();
+        int urlCount = content.split("<loc>").length - 1;
+        summary.append("Number of URLs: ").append(urlCount).append("\n");
+
+        if (urlCount > 0) {
+            int firstLocStart = content.indexOf("<loc>") + 5;
+            int firstLocEnd = content.indexOf("</loc>", firstLocStart);
+            String firstUrl = content.substring(firstLocStart, firstLocEnd);
+            summary.append("First URL: ").append(firstUrl);
+        }
+
+        return summary.toString();
     }
 }

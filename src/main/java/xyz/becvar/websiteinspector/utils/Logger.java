@@ -33,6 +33,11 @@ public class Logger
         System.out.println(Prefix + msg);
     }
 
+    public static void rawLog(String msg)
+    {
+        System.out.println(ANSI_GREEN + msg);
+    }
+
     public static void printColoredKeyValue(String key, String value)
     {
         System.out.println(ANSI_YELLOW + key + ANSI_RESET + ": " + ANSI_GREEN + value + ANSI_RESET);
