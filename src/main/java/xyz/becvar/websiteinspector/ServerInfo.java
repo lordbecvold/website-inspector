@@ -69,6 +69,14 @@ public class ServerInfo
         Logger.printColoredKeyValue("Server Type", serverDetails[1].split(": ")[1]);
         Logger.printColoredKeyValue("CMS", WebsiteUtils.detectCms(url));
 
+        // check if website is using https
+        if (url.contains("https://")) {
+            Logger.printColoredKeyValue("Protocol", "HTTPS");
+        } else {
+            Logger.printColoredKeyValue("Protocol", "HTTP");
+        }
+
+        // check if website is using cloudflare
         if (WebsiteUtils.isUsingCloudflare(url)) {
             Logger.printColoredKeyValue("Cloudflare", "Yes");
         }
