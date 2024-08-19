@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import xyz.becvar.websiteinspector.Main;
 
 public class WebsiteUtils
 {
@@ -17,6 +18,10 @@ public class WebsiteUtils
         try {
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            // set custom user agent
+            conn.setRequestProperty("User-Agent", Main.USER_AGENT);
+
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
@@ -36,6 +41,11 @@ public class WebsiteUtils
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("HEAD");
+
+            // set custom user agent
+            conn.setRequestProperty("User-Agent", Main.USER_AGENT);
+
+            // connect to server
             conn.connect();
 
             // get http headers
@@ -140,6 +150,10 @@ public class WebsiteUtils
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
+
+            // set custom user agent
+            conn.setRequestProperty("User-Agent", Main.USER_AGENT);
+
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String inputLine;
             while ((inputLine = in.readLine()) != null) {

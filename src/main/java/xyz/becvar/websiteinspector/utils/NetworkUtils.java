@@ -2,6 +2,7 @@ package xyz.becvar.websiteinspector.utils;
 
 import java.net.URL;
 import java.net.HttpURLConnection;
+import xyz.becvar.websiteinspector.Main;
 
 public class NetworkUtils
 {
@@ -12,6 +13,10 @@ public class NetworkUtils
             connection.setRequestMethod("HEAD");
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);
+
+            // set custom user agent
+            connection.setRequestProperty("User-Agent", Main.USER_AGENT);
+
             int responseCode = connection.getResponseCode();
             return (responseCode >= 200 && responseCode < 400);
         } catch (Exception e) {

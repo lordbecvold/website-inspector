@@ -10,6 +10,9 @@ public class Main
     public static final String APP_PREFIX = "WI";
     public static String url = null;
 
+    // define custom user agent
+    public static final String USER_AGENT = "website-inspector (becvar.xyz)";
+
     public static void main(String[] args)
     {
         // init scanner instance

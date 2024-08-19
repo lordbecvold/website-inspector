@@ -9,12 +9,12 @@ This application serves as a better replacement for [website-scanner](https://gi
 - [X] Check if website running on cloudflare
 - [X] Check if website running on non secure http protocol
 - [X] Check robots.txt & sitemap
+- [X] Custom request browser agent or simulate google chrome
 - [ ] Scan routes
 - [ ] Scan subdomains
 - [ ] SQL injection test
 - [ ] XSS test
 - [ ] CSRF test
-- [ ] Custom request browser agent or simulate google chrome
 - [ ] Log scan output to summary file
 
 ## License
