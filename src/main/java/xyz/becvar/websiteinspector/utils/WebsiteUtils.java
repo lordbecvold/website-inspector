@@ -1,6 +1,9 @@
 package xyz.becvar.websiteinspector.utils;
 
 import java.net.URL;
+import java.util.Map;
+import java.util.List;
+import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -24,6 +27,35 @@ public class WebsiteUtils
             return "";
         }
         return result.toString();
+    }
+
+    public static boolean isUsingCloudflare(String urlString)
+    {
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("HEAD");
+            conn.connect();
+
+            // get http headers
+            Map<String, List<String>> headers = conn.getHeaderFields();
+
+            // check for cloudflare headers
+            if (headers.containsKey("Server") && headers.get("Server").contains("cloudflare")) {
+                return true;
+            }
+            if (headers.containsKey("CF-RAY")) {
+                return true;
+            }
+            if (headers.containsKey("CF-Cache-Status")) {
+                return true;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     public static String detectCms(String url)

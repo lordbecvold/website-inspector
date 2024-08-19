@@ -69,6 +69,10 @@ public class ServerInfo
         Logger.printColoredKeyValue("Server Type", serverDetails[1].split(": ")[1]);
         Logger.printColoredKeyValue("CMS", WebsiteUtils.detectCms(url));
 
+        if (WebsiteUtils.isUsingCloudflare(url)) {
+            Logger.printColoredKeyValue("Cloudflare", "Yes");
+        }
+
         // print the server headers formatted with colors
         String[] headers = serverDetails[2].split("\n");
         for (String header : headers) {

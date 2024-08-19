@@ -6,7 +6,7 @@ This application serves as a better replacement for [website-scanner](https://gi
 - [X] Website url input validator (url to scan add in argument)
 - [X] Webserver info (webserver name, server ip, cms name, version, headers, etc...)
 - [X] CMS detection (wordpress, joomla, drupal, etc...)
-- [ ] Check if website running on cloudflare
+- [X] Check if website running on cloudflare
 - [ ] Check if website running on non secure http protocol
 - [ ] Check robots.txt, sitemap & well-known 
 - [ ] Scan routes
