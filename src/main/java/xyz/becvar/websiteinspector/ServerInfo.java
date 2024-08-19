@@ -6,6 +6,7 @@ import java.util.List;
 import java.io.IOException;
 import javax.net.ssl.HttpsURLConnection;
 import xyz.becvar.websiteinspector.utils.Logger;
+import xyz.becvar.websiteinspector.utils.WebsiteUtils;
 
 public class ServerInfo
 {
@@ -66,6 +67,7 @@ public class ServerInfo
         // print the default server info
         Logger.printColoredKeyValue("Server IP Address", serverDetails[0].split(": ")[1]);
         Logger.printColoredKeyValue("Server Type", serverDetails[1].split(": ")[1]);
+        Logger.printColoredKeyValue("CMS", WebsiteUtils.detectCms(url));
 
         // print the server headers formatted with colors
         String[] headers = serverDetails[2].split("\n");
