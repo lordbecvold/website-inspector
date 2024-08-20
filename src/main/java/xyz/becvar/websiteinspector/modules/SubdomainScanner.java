@@ -60,7 +60,7 @@ public class SubdomainScanner
         try {
             URL url = new URL(urlString);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setConnectTimeout(Main.CONNECTION_TIMEOUT);
+            connection.setConnectTimeout(Main.CONNECTION_TIMEOUT * 1000);
             connection.setRequestMethod("GET");
             connection.setRequestProperty("User-Agent", Main.USER_AGENT);
 

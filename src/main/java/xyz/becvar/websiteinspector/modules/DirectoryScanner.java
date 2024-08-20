@@ -14,6 +14,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.Executors;
 import xyz.becvar.websiteinspector.Main;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import xyz.becvar.websiteinspector.utils.Logger;
 
 public class DirectoryScanner
@@ -51,7 +53,7 @@ public class DirectoryScanner
         try {
             URL url = new URL(urlString);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setConnectTimeout(Main.CONNECTION_TIMEOUT);
+            connection.setConnectTimeout(Main.CONNECTION_TIMEOUT * 1000);
             connection.setRequestMethod("GET");
             connection.setRequestProperty("User-Agent", Main.USER_AGENT);
 
