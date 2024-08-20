@@ -1,21 +1,40 @@
 package xyz.becvar.websiteinspector;
 
-import xyz.becvar.websiteinspector.utils.Logger;
-import xyz.becvar.websiteinspector.utils.NetworkUtils;
+import java.net.URL;
+import java.net.HttpURLConnection;
+import xyz.becvar.websiteinspector.utils.SystemUtils;
 
 public class Validator
 {
+    public static boolean checkIsWebsiteAvailable(String url)
+    {
+        try {
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+            connection.setRequestMethod("HEAD");
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
+
+            // set custom user agent
+            connection.setRequestProperty("User-Agent", Main.USER_AGENT);
+
+            int responseCode = connection.getResponseCode();
+            return (responseCode >= 200 && responseCode < 400);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public static String validateUrl(String url)
     {
         String httpsUrl;
         String httpUrl;
 
         if (url == null || url.trim().isEmpty()) {
-            Logger.error("URL is null or empty.");
+            SystemUtils.shutdown("URL is null or empty.");
         }
 
         if (url == null || url.trim().isEmpty()) {
-            Logger.error("URL is null or empty.");
+            SystemUtils.shutdown("URL is null or empty.");
             return null;
         }
 
@@ -37,15 +56,15 @@ public class Validator
         }
 
         // check if HTTPS is available
-        if (NetworkUtils.checkIsWebsiteAvailable(httpsUrl)) {
+        if (checkIsWebsiteAvailable(httpsUrl)) {
             return httpsUrl;
         }
 
         // check if HTTP is available
-        if (NetworkUtils.checkIsWebsiteAvailable(httpUrl)) {
+        if (checkIsWebsiteAvailable(httpUrl)) {
             return httpUrl;
         } else {
-            Logger.error("Website is not available.");
+            SystemUtils.shutdown("Website is not available.");
             return null;
         }
     }
