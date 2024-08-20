@@ -1,13 +1,19 @@
 package xyz.becvar.websiteinspector;
 
+import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.Future;
 import xyz.becvar.websiteinspector.utils.Logger;
 import xyz.becvar.websiteinspector.modules.ServerInfo;
 import xyz.becvar.websiteinspector.modules.SiteMapInfo;
+import xyz.becvar.websiteinspector.modules.DirectoryScanner;
+import xyz.becvar.websiteinspector.modules.SubdomainScanner;
 
 public class Main
 {
     // define global variables
+    public static final int SCANNER_THREAD_POOL_SIZE = 128;
+    public static final int CONNECTION_TIMEOUT = 120;
     public static final String APP_PREFIX = "WI";
     public static final String USER_AGENT = "website-inspector (becvar.xyz)";
 
@@ -30,39 +36,31 @@ public class Main
         // validate url
         url = Validator.validateUrl(url);
 
+        // scan web directories routes
+        Logger.printSpacer();
+        Logger.log("Directory Scan");
+        Logger.printSpacer();
+
+        // scan routes and wait for completion
+        List<Future<?>> directoryFutures = DirectoryScanner.scanRoutes(url);
+        Validator.waitForCompletion(directoryFutures);
+
+        // scan subdomains
+        Logger.printSpacer();
+        Logger.log("Subdomain Scan");
+        Logger.printSpacer();
+
+        // scan subdomains and wait for completion
+        List<Future<?>> subdomainFutures = SubdomainScanner.scanSubdomains(url);
+        Validator.waitForCompletion(subdomainFutures);
+
         // print server info title header
         Logger.printSpacer();
         Logger.log("Server Info");
         Logger.printSpacer();
 
-        // get server info
-        String[] serverDetails = ServerInfo.getServerInfo(url);
-
-        // print the default server info
-        Logger.printColoredKeyValue("Server IP Address", serverDetails[0].split(": ")[1]);
-        Logger.printColoredKeyValue("Server Type", serverDetails[1].split(": ")[1]);
-        Logger.printColoredKeyValue("CMS", ServerInfo.detectCms(url));
-
-        // check if website is using https
-        if (url.contains("https://")) {
-            Logger.printColoredKeyValue("Protocol", "HTTPS");
-        } else {
-            Logger.printColoredKeyValue("Protocol", "HTTP");
-        }
-
-        // check if website is using cloudflare
-        if (ServerInfo.isUsingCloudflare(url)) {
-            Logger.printColoredKeyValue("Cloudflare", "Yes");
-        }
-
-        // print the server headers formatted with colors
-        String[] headers = serverDetails[2].split("\n");
-        for (String header : headers) {
-            if (header.contains(": ")) {
-                String[] parts = header.split(": ", 2);
-                Logger.printColoredKeyValue(parts[0], parts[1]);
-            }
-        }
+        // print server info
+        ServerInfo.printServerInfo(url);
 
         // print robots.txt summary
         Logger.printSpacer();
@@ -78,7 +76,24 @@ public class Main
         String sitemapSummary = SiteMapInfo.getSitemapAnalyze(url);
         Logger.rawLog(sitemapSummary);
 
+        // print results
+        Logger.printSpacer();
+        Logger.log("Scan Results");
+        Logger.printSpacer();
+
+        // print results
+        if (DirectoryScanner.getFoundDirectories().isEmpty() && SubdomainScanner.getFoundSubdomains().isEmpty()) {
+            Logger.log("No results found.");
+            return;
+        } else {
+            DirectoryScanner.getFoundDirectories().forEach(Logger::log);
+            SubdomainScanner.getFoundSubdomains().forEach(Logger::log);
+        }
+
         // print ending spacer
         Logger.printSpacer();
+
+        // exit app after printing results
+        System.exit(0);
     }
 }

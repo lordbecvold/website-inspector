@@ -14,8 +14,6 @@ public class WebsiteUtils
         try {
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-            // set custom user agent
             conn.setRequestProperty("User-Agent", Main.USER_AGENT);
 
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -38,8 +36,6 @@ public class WebsiteUtils
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-
-            // set custom user agent
             conn.setRequestProperty("User-Agent", Main.USER_AGENT);
 
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));

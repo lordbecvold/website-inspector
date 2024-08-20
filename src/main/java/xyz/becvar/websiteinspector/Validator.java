@@ -1,7 +1,9 @@
 package xyz.becvar.websiteinspector;
 
 import java.net.URL;
+import java.util.List;
 import java.net.HttpURLConnection;
+import java.util.concurrent.Future;
 import xyz.becvar.websiteinspector.utils.SystemUtils;
 
 public class Validator
@@ -66,6 +68,16 @@ public class Validator
         } else {
             SystemUtils.shutdown("Website is not available.");
             return null;
+        }
+    }
+
+    public static void waitForCompletion(List<Future<?>> futures) {
+        for (Future<?> future : futures) {
+            try {
+                future.get();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
